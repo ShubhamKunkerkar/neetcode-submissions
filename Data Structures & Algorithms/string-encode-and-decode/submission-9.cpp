@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> sizes;
+    string encode(vector<string>& strs) {
+        string a = "";
+        for(int i = 0; i < strs.size(); i++){
+            sizes.push_back(strs[i].size());
+            a += strs[i];
+        }
+        cout <<a;
+        return a;
+    }
+
+    vector<string> decode(string s) {
+        int index = -1;
+        vector<string> vec;
+        int j = 0; 
+        for(int i =0; i < s.size(); i++){
+            if(index == -1 || j == sizes[index]){
+                index++;
+                vec.push_back("");
+                if(sizes[index] == 0){
+                    vec.push_back("");
+                    index++;
+                }
+                j = 0;
+            }
+            if(i < s.size()){
+                j++;
+                vec[index] += s[i];
+            }
+        }
+        if(index == -1 && sizes.size() != 0){
+            vec.push_back("");
+        }
+        return vec;
+    }
+};
